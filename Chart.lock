@@ -1,0 +1,21 @@
+dependencies:
+- name: nginx-ingress
+  repository: https://storage.googleapis.com/charts.okteto.com
+  version: 1.41.2
+- name: cert-manager
+  repository: https://charts.jetstack.io
+  version: v1.3.0
+- name: cert-manager-webhook-civo
+  repository: https://storage.googleapis.com/charts.okteto.com
+  version: 0.2.0
+- name: aws-node-termination-handler
+  repository: https://aws.github.io/eks-charts
+  version: 0.10.0
+- name: k8s-node-termination-handler
+  repository: https://irespaldiza.github.io/helmCharts
+  version: 0.1.0
+- name: reloader
+  repository: https://stakater.github.io/stakater-charts
+  version: v0.0.89
+digest: sha256:00e9a296e8a0ad480aa54d293420c53f7cac67e702e4eebf5ae940a47b4e87b9
+generated: "2021-05-24T12:26:51.571621-03:00"
