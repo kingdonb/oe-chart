@@ -1,7 +1,7 @@
 {{- if .Values.registry.enabled }}
 apiVersion: v1
 data:
-  1234: {{ .Release.Namespace }}/{{ include "okteto.fullname" . }}-buildkit:1234
+  "1234": {{ .Release.Namespace }}/{{ include "okteto.fullname" . }}-buildkit:1234
 kind: ConfigMap
 metadata:
   labels:
