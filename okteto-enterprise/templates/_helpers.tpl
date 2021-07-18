@@ -62,11 +62,17 @@ Returns the private IP of the service exposing okteto
 {{- end -}}
 {{- end -}}
 
+{{- define "okteto.buildkitname" -}}
+{{- $name :=  include "okteto.fullname" . }}
+{{- printf "%s-buildkit" $name -}}
+{{- end -}}
+
 {{/*
 Returns the private IP of the service exposing buildkit
 */}}
 {{- define "okteto.buildkitprivateip" -}}
-{{- printf "$(%s_OKTETO_ENTERPRISE_BUILDKIT_SERVICE_HOST)" (regexReplaceAll "-" .Release.Name "_") | upper -}}
+{{- $name :=  include "okteto.buildkitname" . }}
+{{- printf "$(%s_SERVICE_HOST)" (regexReplaceAll "-" $name "_") | upper -}}
 {{- end -}}
 
 {{/*

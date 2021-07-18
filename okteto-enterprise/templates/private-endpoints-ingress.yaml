@@ -6,7 +6,7 @@ kind: Ingress
 metadata:
   name: {{ include "okteto.fullname" . }}-private-endpoints
   labels:
-    app.kubernetes.io/name: {{ include "okteto.name" . }}-private-endpoints
+    app.kubernetes.io/name: {{ include "okteto.fullname" . }}-private-endpoints
     helm.sh/chart: {{ include "okteto.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}

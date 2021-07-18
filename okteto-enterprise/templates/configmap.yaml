@@ -51,6 +51,7 @@ data:
   "OKTETO_INJECT_DEV_BINARIES_ENABLED": "{{ .Values.injectDevelopmentBinaries.enabled }}"
 {{- if .Values.auth.google.enabled }}
   "GOOGLE_CLIENTID": "{{ .Values.auth.google.clientId }}"
+  "OKTETO_GOOGLE_ALLOW_DOMAINS": "{{ include "okteto.joinListWithComma" .Values.auth.google.allowDomains }}"
 {{- else if .Values.auth.github.enabled }}
   "GITHUB_CLIENTID": "{{ .Values.auth.github.clientId }}"
   "GITHUB_ORGANIZATION": "{{ .Values.auth.github.organization }}"
@@ -78,7 +79,7 @@ data:
   "OKTETO_SERVICE_EXTERNAL_NAMES_ENABLED":  "{{ .Values.externalNames.enabled }}"
   "OKTETO_NETWORK_POLICIES_ENABLED":  "{{ .Values.networkPolicies.enabled }}"
 {{- if .Values.networkPolicies.enabled }}
-  "OKTETO_NETWORK_POLICIES_CIDR": "{{ .Values.networkPolicies.cidr }}"
+  "OKTETO_NETWORK_POLICIES_BLOCKED_CIDRS": {{ .Values.networkPolicies.blockedCIDRs | toJson | quote }}
 {{- end }}
   "OKTETO_INGRESS_LIMITS_ENABLED":  "{{ .Values.ingressLimits.enabled }}"
 {{- if .Values.ingressLimits.enabled }}
@@ -93,6 +94,7 @@ data:
 {{- end }}
   "OKTETO_AUTOSCALER_ENABLED":  "{{ .Values.autoscaler.enabled }}"
 {{- if .Values.autoscaler.enabled }}
+  "OKTETO_AUTOSCALER_NODE_POOL_LABEL": "{{ .Values.autoscaler.nodePoolLabel }}"
   "OKTETO_AUTOSCALER_SCHEDULE": "{{ .Values.autoscaler.schedule }}"
   "OKTETO_AUTOSCALER_UP": "{{ .Values.autoscaler.up }}"
   "OKTETO_AUTOSCALER_DOWN": "{{ .Values.autoscaler.down }}"
@@ -115,6 +117,7 @@ data:
   "OKTETO_QUOTAS_RESOURCES_MAX_SECRETS": "{{ .Values.quotas.resources.maxSecrets }}"
   "OKTETO_QUOTAS_RESOURCES_MAX_CONFIGMAPS": "{{ .Values.quotas.resources.maxConfigMaps }}"
   "OKTETO_QUOTAS_RESOURCES_MAX_PVCS":  "{{ .Values.quotas.resources.maxPVCs }}"
+  "OKTETO_QUOTAS_RESOURCES_MAX_VOLUME_SNAPSHOTS": "{{ .Values.quotas.resources.maxVolumeSnapshots }}"
 {{- end }}
   "OKTETO_QUOTAS_BANDWIDTH_ENABLED":  "{{ .Values.quotas.bandwidth.enabled }}"
 {{- if .Values.quotas.bandwidth.enabled }}
@@ -192,3 +195,10 @@ data:
   "OKTETO_DEFAULT_DEV_STORAGE_CLASS": "{{ .Values.devStorageClass.storageClass }}"
 {{- end}}
   "OKTETO_NODE_STATIC_IP_ENABLED": "{{ .Values.unsupported.staticIPs }}"
+  "OKTETO_VALIDATE_PVC_ENABLED": "{{ .Values.volumes.validate.enabled }}"
+{{- if .Values.volumes.validate.enabled }}
+  "OKTETO_SUPPORTED_STORAGE_CLASSES": "{{ include "okteto.joinListWithComma" .Values.volumes.validate.supportedStorageClasses }}"
+  "OKTETO_FORCE_STORAGE_CLASS": "{{ .Values.volumes.validate.forceStorageClass }}"
+  "OKTETO_SUPPORTED_ACCESS_MODES": "{{ include "okteto.joinListWithComma" .Values.volumes.validate.supportedAccessModes }}"
+{{- end}}
+  "OKTETO_GIT_INSTALLER_ACTIVE_DEADLINE_SECONDS": "{{ .Values.installer.activeDeadlineSeconds }}"
